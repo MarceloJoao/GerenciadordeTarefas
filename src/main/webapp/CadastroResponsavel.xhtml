@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Cadastro de Responsáveis</title>
+    <meta charset="UTF-8"/>
+</h:head>
+
+<h:body>
+
+    <h1>Cadastro de Responsáveis</h1>
+
+    <!-- Navegação -->
+    <h:link outcome="/CadastroTarefas.xhtml" value="Cadastrar Tarefa" />
+    <h:outputText value=" | " />
+    <h:link outcome="/FiltroTarefas.xhtml" value="Listar Tarefas" />
+
+    <hr/>
+
+    <!-- Formulário -->
+    <h:form id="formResponsavel">
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="nome" value="Nome:" />
+            <h:inputText id="nome"
+                         value="#{tarefaController.responsavel.nome}"
+                         required="true"
+                         requiredMessage="O nome é obrigatório" />
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Cadastrar Responsável"
+                         action="#{tarefaController.salvarResponsavel}" />
+
+        <br/><br/>
+
+        <h:messages style="color:red;" />
+
+    </h:form>
+
+    <hr/>
+
+    <!-- Listagem -->
+    <h2>Responsáveis cadastrados</h2>
+
+    <h:dataTable value="#{tarefaController.responsaveis}"
+                 var="r"
+                 border="1"
+                 cellpadding="5">
+
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{r.id}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{r.nome}
+        </h:column>
+
+    </h:dataTable>
+
+</h:body>
+</html>

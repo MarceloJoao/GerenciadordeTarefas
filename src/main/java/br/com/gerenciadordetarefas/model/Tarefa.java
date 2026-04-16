@@ -1,9 +1,10 @@
 package br.com.gerenciadordetarefas.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
+@Table(name = "tarefas")
 public class Tarefa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,10 +14,22 @@ public class Tarefa {
 
     private String descricao;
 
+    @ManyToOne
+    @JoinColumn(name = "responsavel_id")
+    private Responsavel responsavel;
+
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
 
-    private LocalDate deadline;
+    @Temporal(TemporalType.DATE)
+    private Date deadline;
+
+    @Enumerated(EnumType.STRING)
+    private StatusTarefa status;
+
+    public Tarefa() {
+        this.status = StatusTarefa.EM_ANDAMENTO;
+    }
 
     public Long getId() {
         return id;
@@ -50,11 +63,27 @@ public class Tarefa {
         this.prioridade = prioridade;
     }
 
-    public LocalDate getDeadline() {
+    public StatusTarefa getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTarefa status) {
+        this.status = status;
+    }
+
+    public Responsavel getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Responsavel responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 }

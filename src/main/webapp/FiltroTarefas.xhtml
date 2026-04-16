@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Listagem de Tarefas</title>
+    <meta charset="UTF-8"/>
+</h:head>
+<h:body>
+
+    <h1>Listagem de Tarefas</h1>
+
+    <h:link outcome="/CadastroResponsavel.xhtml" value="Responsáveis" />
+    <h:outputText value=" | " />
+    <h:link outcome="/FiltroTarefas.xhtml" value="Cadastrar Tarefa" />
+
+    <hr/>
+
+    <h:form>
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="filtroNumero" value="Número:" />
+            <h:inputText id="filtroNumero"
+                         value="#{tarefaController.filtroNumero}" />
+
+            <h:outputLabel for="filtroTexto" value="Título/Descrição:" />
+            <h:inputText id="filtroTexto"
+                         value="#{tarefaController.filtroTexto}" />
+
+            <h:outputLabel for="filtroResponsavel" value="Responsável:" />
+            <h:selectOneMenu id="filtroResponsavel"
+                             value="#{tarefaController.filtroResponsavelId}">
+                <f:selectItem itemLabel="Selecione" itemValue="#{null}" noSelectionOption="true" />
+                <f:selectItems value="#{tarefaController.responsaveis}"
+                               var="r"
+                               itemValue="#{r.id}"
+                               itemLabel="#{r.nome}" />
+            </h:selectOneMenu>
+
+            <h:outputLabel for="filtroStatus" value="Situação:" />
+            <h:selectOneMenu id="filtroStatus"
+                             value="#{tarefaController.filtroStatus}">
+                <f:selectItem itemLabel="Em andamento" itemValue="EM_ANDAMENTO" />
+                <f:selectItem itemLabel="Concluída" itemValue="CONCLUIDA" />
+            </h:selectOneMenu>
+
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Buscar Tarefas"
+                         action="#{tarefaController.filtrar}" />
+        <h:commandButton value="Limpar Filtros"
+                         action="#{tarefaController.limparFiltros}"
+                         immediate="true" />
+
+        <br/><br/>
+
+        <h:dataTable value="#{tarefaController.tarefasFiltradas}" var="t" border="1" cellpadding="5">
+
+            <h:column>
+                <f:facet name="header">Número</f:facet>
+                #{t.id}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Título</f:facet>
+                #{t.titulo}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Responsável</f:facet>
+                #{t.responsavel.nome}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Situação</f:facet>
+                #{t.status}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Ações</f:facet>
+
+                <h:commandLink value="Editar"
+                               action="#{tarefaController.prepararEdicao(t)}" />
+                <h:outputText value=" | " />
+
+                <h:commandLink value="Excluir"
+                               action="#{tarefaController.excluir(t.id)}" />
+                <h:outputText value=" | " />
+
+                <h:commandLink value="Concluir"
+                               action="#{tarefaController.concluir(t.id)}"
+                               rendered="#{t.status.name() eq 'EM_ANDAMENTO'}" />
+            </h:column>
+
+        </h:dataTable>
+    </h:form>
+
+</h:body>
+</html>
