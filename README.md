@@ -91,7 +91,7 @@ docker compose up -d
 Verifique o arquivo `persistence.xml`:
 
 ```xml
-<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/tarefas_db" />
+<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/tarefas_db" />
 <property name="javax.persistence.jdbc.user" value="admin" />
 <property name="javax.persistence.jdbc.password" value="123456" />
 
