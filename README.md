@@ -66,6 +66,11 @@ O projeto foi estruturado em camadas:
 ---
 
 ## ⚙️ Como executar o projeto
+#### Pré-requisitos
+
+- Java 17+ (ou versão utilizada)
+- Apache Tomcat 9+
+- Docker (para o banco)
 
 ### 1. Subir o banco de dados
 
@@ -86,7 +91,7 @@ docker compose up -d
 Verifique o arquivo `persistence.xml`:
 
 ```xml
-<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/tarefas_db" />
+<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/tarefas_db" />
 <property name="javax.persistence.jdbc.user" value="admin" />
 <property name="javax.persistence.jdbc.password" value="123456" />
 
