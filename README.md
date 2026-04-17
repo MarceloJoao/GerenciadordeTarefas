@@ -66,6 +66,11 @@ O projeto foi estruturado em camadas:
 ---
 
 ## ⚙️ Como executar o projeto
+#### Pré-requisitos
+
+- Java 17+ (ou versão utilizada)
+- Apache Tomcat 9+
+- Docker (para o banco)
 
 ### 1. Subir o banco de dados
 
